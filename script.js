@@ -39,3 +39,17 @@ var player = {
     totHP: 100,
     curHP: 100
 }
+
+
+// Loading + listeners
+document.body.onload = function bodyLoad() {
+    document.getElementsByClassName("playerName")[0].innerText = player.name;
+}
+
+document.getElementsByClassName("playerName")[0].addEventListener("click", function changeName() {
+    let newName = prompt("Choose your new name, player:", "Player");
+    if (newName == "") {
+        newName = "Player";
+    }
+    document.getElementsByClassName("playerName")[0].innerText = newName;
+})
