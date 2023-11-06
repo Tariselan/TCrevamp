@@ -22,14 +22,16 @@ class Attack {
 // lists of things
 
 var attacks = {
-    punch: new Attack(1, "Punch", 2, 0.9),
-    bite: new Attack(2, "Bite", 4, 0.5),
-    kick: new Attack(3, "Kick", 3, 0.8)
+    0: new Attack(0, "Punch", 2, 0.9),
+    1: new Attack(1, "Bite", 4, 0.5),
+    2: new Attack(2, "Kick", 3, 0.8),
+    3: new Attack(3, "Scratch", 1, 1)
 }
 
 var enemies = {
-    test: new Enemy(0, "Test Enemy", 20, [attacks.punch]),
-    drunk: new Enemy(1, "Drunk Man", 45, [attacks.punch, attacks.bite])
+    0: new Enemy(0, "Test Enemy", 20, [attacks.punch]),
+    1: new Enemy(1, "Drunk Man", 45, [attacks.punch, attacks.bite]),
+    2: new Enemy(2, "Wild Dog", 10, [attacks.bite, attacks.scratch])
 }
 
 // the rest ig lol
@@ -40,10 +42,60 @@ var player = {
     curHP: 100
 }
 
+var battlemode = false;
+var currentEnemy = {
+    "id": 0,
+    "totHP": 100,
+    "curHP": 100
+}
+
+// loading functions
+function loadEnemy(enemyId) {
+    let placeholder = enemies[enemyId];
+    for (let i = 0; i < document.getElementsByClassName("enemyName").length; i++) {
+        document.getElementsByClassName("enemyName")[i].innerHTML = placeholder.name;
+    }
+    document.getElementsByClassName("EtotHP")[0].innerHTML = placeholder.totHP;
+    document.getElementsByClassName("EcurHP")[0].innerHTML = placeholder.totHP;
+}
+
+function loadBattle() {
+    currentEnemy.id = Math.round(Math.random()*(Object.keys(enemies).length-2)+1);
+    loadEnemy(currentEnemy.id);
+}
+
+// functions
+
+function playerattack(attackId) {
+    let currentAttack = attacks[attackId];
+
+    
+}
+
+function enemyattack(attackId) {
+    let currentAttack = attacks[attackId];
+}
+
+
+function Battlemode() {
+    if (!battlemode) {
+        loadBattle();
+        battlemode = true;
+        document.getElementById("Battlemode").innerText = "Exit";
+    }
+    else {
+        battlemode = false;
+        document.getElementById("Battlemode").innerText = "Enter";
+    }
+}
+
 
 // Loading + listeners
 document.body.onload = function bodyLoad() {
     document.getElementsByClassName("playerName")[0].innerText = player.name;
+    document.getElementsByClassName("PcurHP")[0].innerHTML = player.totHP;
+    document.getElementsByClassName("PtotHP")[0].innerHTML = player.totHP;
+    Battlemode();
 }
 
 document.getElementsByClassName("playerName")[0].addEventListener("click", function changeName() {
@@ -52,4 +104,14 @@ document.getElementsByClassName("playerName")[0].addEventListener("click", funct
         newName = "Player";
     }
     document.getElementsByClassName("playerName")[0].innerText = newName;
+})
+
+
+
+
+// DEV TOOLS
+document.body.addEventListener('keypress', function(event) {
+    if (event.key === 'b') {
+        loadBattle();
+    }
 })
