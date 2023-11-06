@@ -48,6 +48,7 @@ var currentEnemy = {
     "totHP": 100,
     "curHP": 100
 }
+var turn = 1;
 
 // loading functions
 function loadEnemy(enemyId) {
