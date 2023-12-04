@@ -41,6 +41,11 @@ var player = {
     totHP: 100,
     curHP: 100
 }
+var unlockables = new Map([
+    ["basic_resources", true],
+    ["battle", false]
+])
+
 
 var battlemode = false;
 var currentEnemy = {
@@ -79,16 +84,16 @@ function enemyattack(attackId) {
 
 
 function Battlemode() {
-    if (!battlemode) {
+    if (!battlemode && unlockables.get("battle")) {
         loadBattle();
         battlemode = true;
         document.getElementById("Battlemode").innerText = "Exit";
-        document.getElementsByClassName("Battlemode")[0].style.visibility = 'visible';
+        document.getElementsByClassName("Battlemode")[0].style.opacity = 1;
     }
     else {
         battlemode = false;
         document.getElementById("Battlemode").innerText = "Enter";
-        document.getElementsByClassName("Battlemode")[0].style.visibility = 'hidden';
+        document.getElementsByClassName("Battlemode")[0].style.opacity = 0;
     }
 }
 
@@ -108,6 +113,7 @@ document.getElementsByClassName("playerName")[0].addEventListener("click", funct
     document.getElementsByClassName("playerName")[0].innerText = newName;
 })
 
+document.addEventListener
 
 
 
@@ -115,5 +121,8 @@ document.getElementsByClassName("playerName")[0].addEventListener("click", funct
 document.body.addEventListener('keypress', function(event) {
     if (event.key === 'b') {
         loadBattle();
+    }
+    if (event.key === 'B') {
+        unlockables.set("battle", true);
     }
 })
