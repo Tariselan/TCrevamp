@@ -8,10 +8,10 @@ body {
     justify-content: center;
 }
 .header { height: fit-content; grid-area: header; }
-.menu { grid-area: menu;}
+.menu { grid-area: menu; position: relative; top: 15%;  }
 
-.main { grid-area: main; position: relative; top: -15%;  }
-.right { grid-area: right; }
+.main { grid-area: main;}
+.right { grid-area: right; position: relative; top: 15%;  }
 .footer { grid-area: footer; }
 
 .grid-container {
@@ -64,7 +64,7 @@ div.fight {
     border-radius: 3%;
     border: 6px solid #292929;
     opacity: 0;
-    transition: opacity 1s;
+    transition: opacity 0.3s;
 }
 div.Battlemode {
     opacity: 0;

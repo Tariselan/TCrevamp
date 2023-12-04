@@ -142,3 +142,13 @@ document.body.addEventListener('keypress', function(event) {
         }
     }
 })
+
+$(document).ready(function(){
+    setTimeout(PlayMusic,3000);
+  })
+  function PlayMusic() {
+
+    var play=document.getElementById("music");
+    play.play();
+  }
+  
