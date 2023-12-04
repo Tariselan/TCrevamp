@@ -63,6 +63,8 @@ div.fight {
     background-color: #333;
     border-radius: 3%;
     border: 6px solid #292929;
+    opacity: 0;
+    transition: opacity 1s;
 }
 div.Battlemode {
     opacity: 0;

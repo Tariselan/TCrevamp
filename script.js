@@ -44,10 +44,13 @@ var player = {
 var unlockables = new Map([
     ["basic_resources", true],
     ["battle", false]
+]);
+
+var modes = new Map([
+    ["devtools", false],
+    ["battle", false]
 ])
 
-
-var battlemode = false;
 var currentEnemy = {
     "id": 0,
     "totHP": 100,
@@ -84,14 +87,14 @@ function enemyattack(attackId) {
 
 
 function Battlemode() {
-    if (!battlemode && unlockables.get("battle")) {
+    if (!modes.get("battle") && unlockables.get("battle")) {
         loadBattle();
-        battlemode = true;
+        modes.set("battle", true);
         document.getElementById("Battlemode").innerText = "Exit Battle";
         document.getElementsByClassName("Battlemode")[0].style.opacity = 1;
     }
     else {
-        battlemode = false;
+        modes.set("battle", false);
         document.getElementById("Battlemode").innerText = "Enter Battle";
         document.getElementsByClassName("Battlemode")[0].style.opacity = 0;
     }
@@ -121,14 +124,21 @@ document.querySelectorAll(".playerName").forEach(span => {
 
 // DEV TOOLS
 document.body.addEventListener('keypress', function(event) {
-    if (event.key === 'b') {
-        loadBattle();
+    if (event.key === '~') {
+        modes.set("devtools", true);
+        alert("dev mode on");
     }
-    if (event.key === 'B') {
-        unlockables.set("battle", true);
-        document.getElementById("Battlemode").title = "Battle";
-        console.log("updated map:\n(Enabled battling)\n ");
-        console.info(unlockables);
-        console.log("\n======================================================")
+    if (modes.get("devtools")) {
+        if (event.key === 'X') {
+            loadBattle();
+        }
+        if (event.key === 'B') {
+            document.getElementsByClassName("fight")[0].style.opacity = 1;
+            unlockables.set("battle", true);
+            document.getElementById("Battlemode").title = "Battle";
+            console.log("updated map:\n(Enabled battling)\n ");
+            console.info(unlockables);
+            console.log("\n======================================================")
+        }
     }
 })
