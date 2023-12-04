@@ -3,6 +3,7 @@
         <title>The Collection</title>
         <script src="script.js" defer></script>
         <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/x-icon" href="favicon.bmp">
     </head>
     <body>
         <h1>The Collection</h1>
@@ -12,13 +13,15 @@
             <br>
             <b><span class="playerName">Player</span></b><br>
             HP: <span class="PcurHP">0</span>/<span class="PtotHP">0</span><br>
-            You used <span class="pMoveName">attack</span> and it <span class="pMoveAcc">hit</span><br>
-            <br>
-            <button onclick="attack(0)">Punch (<span class="punchDP">1</span>DP)</button><br>
-            <br>
-            <b><span class="enemyName">Enemy</span></b><br>
-            HP: <span class="EcurHP">0</span>/<span class="EtotHP">0</span><br>
-            <span class="enemyName">Enemy</span> used <span class="eMoveName">attack</span> and it <span class="eMoveAcc">hit</span>
+            <div class="Battlemode">
+                You used <span class="pMoveName">attack</span> and it <span class="pMoveAcc">hit</span><br>
+                <br>
+                <button onclick="attack(0)">Punch (<span class="punchDP">1</span>DP)</button><br>
+                <br>
+                <b><span class="enemyName">Enemy</span></b><br>
+                HP: <span class="EcurHP">0</span>/<span class="EtotHP">0</span><br>
+                <span class="enemyName">Enemy</span> used <span class="eMoveName">attack</span> and it <span class="eMoveAcc">hit</span>
+            </div>
         </div>
     </body>
 </html>

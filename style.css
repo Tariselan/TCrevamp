@@ -22,3 +22,6 @@ div.fight {
     border-radius: 3%;
     border: 6px solid #292929;
 }
+div.Battlemode {
+    visibility: hidden;
+}

@@ -83,10 +83,12 @@ function Battlemode() {
         loadBattle();
         battlemode = true;
         document.getElementById("Battlemode").innerText = "Exit";
+        document.getElementsByClassName("Battlemode")[0].style.visibility = 'visible';
     }
     else {
         battlemode = false;
         document.getElementById("Battlemode").innerText = "Enter";
+        document.getElementsByClassName("Battlemode")[0].style.visibility = 'hidden';
     }
 }
 
@@ -96,7 +98,6 @@ document.body.onload = function bodyLoad() {
     document.getElementsByClassName("playerName")[0].innerText = player.name;
     document.getElementsByClassName("PcurHP")[0].innerHTML = player.totHP;
     document.getElementsByClassName("PtotHP")[0].innerHTML = player.totHP;
-    Battlemode();
 }
 
 document.getElementsByClassName("playerName")[0].addEventListener("click", function changeName() {
