@@ -6,22 +6,37 @@
         <link rel="icon" type="image/x-icon" href="favicon.bmp">
     </head>
     <body>
-        <h1>The Collection</h1>
-        <div class="fight">
-            <h3>Turn <span class="turnNum">1</span> | <b style="cursor: pointer;"onclick="Battlemode()"><span title="Locked" id="Battlemode">Enter</span> Battle</b></h3>
-            <hr color="#292929">
-            <br>
-            <b><span title="Click to change name" class="playerName">Player</span></b><br>
-            HP: <span class="PcurHP">0</span>/<span class="PtotHP">0</span><br>
-            <div class="Battlemode">
-                You used <span class="pMoveName">attack</span> and it <span class="pMoveAcc">hit</span><br>
-                <br>
-                <button onclick="attack(0)">Punch (<span class="punchDP">1</span>DP)</button><br>
-                <br>
-                <b><span class="enemyName">Enemy</span></b><br>
-                HP: <span class="EcurHP">0</span>/<span class="EtotHP">0</span><br>
-                <span class="enemyName">Enemy</span> used <span class="eMoveName">attack</span> and it <span class="eMoveAcc">hit</span>
+        <div class="grid-container">
+            <div class="header"><h1>The Collection</h1></div>
+            <div class="menu">
+                <div id="stats">
+                    <b><span title="Click to change name" class="playerName">Player</span>'s Stats</b>
+                    <hr color="#292929">
+                    <br>
+                </div>
             </div>
+            <div class="main">
+                <div id="actions">
+                    <h3>Actions</h3>
+                </div>
+            </div>
+            <div class="right">
+                <div class="fight">
+                    <h3>Turn <span class="turnNum">1</span> | <b style="cursor: pointer;"onclick="Battlemode()"><span title="Locked" id="Battlemode">Enter Battle</span></b></h3>
+                    <hr color="#292929">
+                    <br>
+                    <b><span title="Click to change name" class="playerName">Player</span></b><br>
+                    HP: <span class="PcurHP">0</span>/<span class="PtotHP">0</span><br>
+                    <div class="Battlemode">
+                        You used <span class="pMoveName">attack</span> and it <span class="pMoveAcc">hit</span><br>
+                        <br>
+                        <button onclick="attack(0)">Punch (<span class="punchDP">1</span>DP)</button><br>
+                        <br>
+                        <b><span class="enemyName">Enemy</span></b><br>
+                        HP: <span class="EcurHP">0</span>/<span class="EtotHP">0</span><br>
+                        <span class="enemyName">Enemy</span> used <span class="eMoveName">attack</span> and it <span class="eMoveAcc">hit</span>
+                    </div>
+                </div></div>
         </div>
     </body>
 </html>

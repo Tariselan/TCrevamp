@@ -87,12 +87,12 @@ function Battlemode() {
     if (!battlemode && unlockables.get("battle")) {
         loadBattle();
         battlemode = true;
-        document.getElementById("Battlemode").innerText = "Exit";
+        document.getElementById("Battlemode").innerText = "Exit Battle";
         document.getElementsByClassName("Battlemode")[0].style.opacity = 1;
     }
     else {
         battlemode = false;
-        document.getElementById("Battlemode").innerText = "Enter";
+        document.getElementById("Battlemode").innerText = "Enter Battle";
         document.getElementsByClassName("Battlemode")[0].style.opacity = 0;
     }
 }
@@ -105,15 +105,17 @@ document.body.onload = function bodyLoad() {
     document.getElementsByClassName("PtotHP")[0].innerHTML = player.totHP;
 }
 
-document.getElementsByClassName("playerName")[0].addEventListener("click", function changeName() {
-    let newName = prompt("Choose your new name, player:", "Player");
-    if (newName == "") {
-        newName = "Player";
-    }
-    document.getElementsByClassName("playerName")[0].innerText = newName;
-})
-
-document.addEventListener
+document.querySelectorAll(".playerName").forEach(span => {
+    span.addEventListener("click", function changeName() {
+        let newName = prompt("Choose your new name, player:", "Player");
+        if (newName == "") {
+            newName = "Player";
+        };
+        document.querySelectorAll(".playerName").forEach(span => {
+            span.innerText = newName;
+        });
+    });
+});
 
 
 
@@ -124,5 +126,9 @@ document.body.addEventListener('keypress', function(event) {
     }
     if (event.key === 'B') {
         unlockables.set("battle", true);
+        document.getElementById("Battlemode").title = "Battle";
+        console.log("updated map:\n(Enabled battling)\n ");
+        console.info(unlockables);
+        console.log("\n======================================================")
     }
 })

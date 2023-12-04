@@ -7,15 +7,57 @@ body {
     display: flex;
     justify-content: center;
 }
+.header { height: fit-content; grid-area: header; }
+.menu { grid-area: menu;}
+
+.main { grid-area: main; position: relative; top: -15%;  }
+.right { grid-area: right; }
+.footer { grid-area: footer; }
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'menu main main main right right'
+    'menu footer footer footer footer footer';
+  gap: 10px;
+  padding: 10px;
+}
+
 span.playerName {
     cursor: pointer;
 }
+span:hover {
+    color:#AAA
+}
+div#stats {
+    position: relative;
+    color: #CCC;
+    background-color: #333;
+    border-radius: 3%;
+    border: 6px solid #292929;
+    right: 50%;
+    width: 250px;
+    height: fit-content;
+    text-align: center;
+    padding: 3px;
+}
+div#actions {
+    color: #CCC;
+    background-color: #333;
+    border-radius: 3%;
+    border: 6px solid #292929;
+    width: 250px;
+    height: fit-content;
+    text-align: center;
+    padding: 3px;
+}
 div.fight {
-    position: absolute;
+    position: relative;
     width: 300px;
     height: fit-content;
     padding: 3px;
-    top: 100px;
+    left: 50%;
     text-align: center;
     color: #CCC;
     background-color: #333;
