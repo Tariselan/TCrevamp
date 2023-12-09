@@ -1,52 +1,30 @@
 // Classes
 class Enemy {
-
-    constructor(id
-, name, totHP, attacks) {
-        this.id = 
-id;
-        this.name 
-= name;
-        this.totHP
- = totHP; // total
-        this.curHP
- = totHP; // current
-        this.attac
-ks = attacks;
+    constructor(id, name, totHP, attacks) {
+        this.id = id;
+        this.name = name;
+        this.totHP = totHP; // total
+        this.curHP = totHP; // current
+        this.attacks = attacks;
     }
-
 }
 
 class Attack {
-
-    constructor(id
-, name, damage, accuracy) {
-        this.id = 
-id;
-        this.name 
-= name;
-        this.damag
-e = damage;
-        this.accur
-acy = accuracy;
+    constructor(id, name, damage, accuracy) {
+        this.id = id;
+        this.name = name;
+        this.damage = damage;
+        this.accuracy = accuracy;
     }
-
 }
 
 class Material {
-
-    constructor(id
-, name, amount, amount_per_second) {
-        this.id = 
-id;
-        this.name 
-= name;
-        this.amoun
-t = amount;
-        this.amoun
-t_per_second = amount_per_second;
+    constructor(id, name, amount, amount_per_second) {
+        this.id = id;
+        this.name = name;
+        this.amount = amount;
+        this.amount_per_second = amount_per_second;
     }
-
 }
 
 // lists of things
