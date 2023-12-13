@@ -194,7 +194,7 @@ document.body.addEventListener('keypress', function(event) {
         }
         if (event.key === "M") {
             document.getElementById("materialstats").style.opacity = 1;
-            document.getElementById("materialstats").style.height = "fit-content";
+            document.getElementById("materialstats").style.height = "160px";
         }
     }
 })
