@@ -1,0 +1,5 @@
+Extensions used while devving this:
+ - html tag wrapper
+ - GitHub Pull Requests and Issues
+ - Live Server v5.7.9
+ - Word Count v0.1.0
