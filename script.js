@@ -192,5 +192,9 @@ document.body.addEventListener('keypress', function(event) {
             console.info(unlockables);
             console.log("\n======================================================")
         }
+        if (event.key === "M") {
+            document.getElementById("materialstats").style.opacity = 1;
+            document.getElementById("materialstats").style.height = "fit-content";
+        }
     }
 })

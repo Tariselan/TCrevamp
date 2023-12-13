@@ -13,9 +13,18 @@
             <div class="header"><h1>The Collection</h1></div>
             <div class="menu">
                 <div id="stats">
-                    <b><span title="Click to change name" class="playerName">Player</span>'s Stats</b>
+                    <h1><b><span title="Click to change name" class="playerName">Player</span>'s Stats</b></h1>
                     <hr color="#292929">
-                    <p>Name: <b><span title="Click to change name" class="playerName">Player</span></b></p>
+                    <h3>Name:</h3>
+                    <b><span title="Click to change name" class="playerName">Player</span></b>
+                    <p></p>
+                    <div id="materialstats">
+                        <hr color="#292929" width="70%">
+                        <h2>Materials:</h2>
+                        <p><b>Coins:</b> <span id="coinamount">0</span> (+<span id="coinamountPS">0</span>/s)</p>
+                        <p><b>Wood:</b> <span id="woodamount">0</span> (+<span id="woodamountPS">0</span>/s)</p>
+                        <p><b>Stone:</b> <span id="stoneamount">0</span> (+<span id="stoneamountPS">0</span>/s)</p>
+                    </div>
                     <button onclick="save();">Save</button>
                 </div>
             </div>
