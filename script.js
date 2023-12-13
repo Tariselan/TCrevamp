@@ -106,6 +106,12 @@ document.body.onload = function bodyLoad() {
     document.getElementsByClassName("playerName")[0].innerText = player.name;
     document.getElementsByClassName("PcurHP")[0].innerHTML = player.totHP;
     document.getElementsByClassName("PtotHP")[0].innerHTML = player.totHP;
+
+    function PlayMusic() {
+        var play=document.getElementById("music");
+        play.play();
+    }    
+    setTimeout(PlayMusic,5000);
 }
 
 document.querySelectorAll(".playerName").forEach(span => {
@@ -143,12 +149,5 @@ document.body.addEventListener('keypress', function(event) {
     }
 })
 
-$(document).ready(function(){
-    setTimeout(PlayMusic,3000);
-  })
-  function PlayMusic() {
-
-    var play=document.getElementById("music");
-    play.play();
-  }
-  
+import data from './text.json' assert { type: 'json' };
+console.log(data);
