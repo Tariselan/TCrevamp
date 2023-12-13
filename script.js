@@ -65,7 +65,6 @@ var currentEnemy = {
     "curHP": 100
 }
 var turn = 1;
-
 // loading functions
 function loadEnemy(enemyId) {
     let placeholder = enemies[enemyId];
@@ -135,10 +134,6 @@ document.querySelectorAll(".playerName").forEach(span => {
 });
 
 
-//
-
-import Texts from './JSON/text.json' assert {type: 'json'};
-let texts = Texts;
 // DEV TOOLS
 document.body.addEventListener('keypress', function(event) {
     if (event.key === '~') {
