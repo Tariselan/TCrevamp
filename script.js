@@ -135,6 +135,10 @@ document.querySelectorAll(".playerName").forEach(span => {
 });
 
 
+//
+
+import texts from './JSON/text.json' assert {type: 'json'};
+
 
 // DEV TOOLS
 document.body.addEventListener('keypress', function(event) {
@@ -156,6 +160,3 @@ document.body.addEventListener('keypress', function(event) {
         }
     }
 })
-
-import data from './text.json' assert { type: 'json' };
-console.log(data);
