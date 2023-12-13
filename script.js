@@ -41,6 +41,11 @@ var enemies = {
     2: new Enemy(2, "Wild Dog", 10, [attacks.bite, attacks.scratch])
 }
 
+var materials = {
+    0: new Material(0, "Coins", 0, 0),
+    1: new Material(1, "Wood", 0, 0),
+    2: new Material(2, "Stone", 0, 0)
+}
 
 // the rest ig lol
 var player = {
@@ -121,11 +126,14 @@ document.body.onload = function bodyLoad() {
     document.body.addEventListener("click", function () {
         PlayMusic();
     });
+
+    load();
 }
 
 document.querySelectorAll(".playerName").forEach(span => {
     span.addEventListener("click", function changeName() {
         let newName = prompt("Choose your new name, player:", "Player");
+        player.name = newName;
         if (newName == "") {
             newName = "Player";
         };
@@ -134,6 +142,36 @@ document.querySelectorAll(".playerName").forEach(span => {
         });
     });
 });
+
+
+// Saving and loading
+
+function save() {
+    var save = {
+        materials_amount: {
+            coins: materials[0].amount,
+            wood: materials[1].amount,
+            stone: materials[2].amount
+        },
+        materials_amountPS: {
+            coins: materials[0].amount_per_second,
+            wood: materials[1].amount_per_second,
+            stone: materials[2].amount_per_second
+        },
+        name: player.name,
+    };
+    localStorage.setItem("save",JSON.stringify(save));
+    console.log("Game saved: ", save);
+    alert('Game saved');
+}
+
+function load() {
+    var savegame = JSON.parse(localStorage.getItem("save"));
+    if (typeof savegame.name !== "undefined") player.name = savegame.name;
+    if (typeof savegame.name !== "undefined") document.querySelectorAll(".playerName").forEach(span => {
+        span.innerText = savegame.name;
+    });
+}
 
 
 // DEV TOOLS
