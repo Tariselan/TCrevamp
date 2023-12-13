@@ -1,5 +1,4 @@
 // Classes
-
 class Enemy {
     constructor(id, name, totHP, attacks) {
         this.id = id;
@@ -19,8 +18,16 @@ class Attack {
     }
 }
 
-// lists of things
+class Material {
+    constructor(id, name, amount, amount_per_second) {
+        this.id = id;
+        this.name = name;
+        this.amount = amount;
+        this.amount_per_second = amount_per_second;
+    }
+}
 
+// lists of things
 var attacks = {
     0: new Attack(0, "Punch", 2, 0.9),
     1: new Attack(1, "Bite", 4, 0.5),
@@ -33,6 +40,7 @@ var enemies = {
     1: new Enemy(1, "Drunk Man", 45, [attacks.punch, attacks.bite]),
     2: new Enemy(2, "Wild Dog", 10, [attacks.bite, attacks.scratch])
 }
+
 
 // the rest ig lol
 var player = {
