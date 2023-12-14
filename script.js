@@ -143,6 +143,11 @@ document.querySelectorAll(".playerName").forEach(span => {
     });
 });
 
+function wakeup() {
+    document.getElementById("materialstats").style.opacity = 1;
+    document.getElementById("materialstats").style.height = "160px";
+}
+
 
 // Saving and loading
 
@@ -193,8 +198,7 @@ document.body.addEventListener('keypress', function(event) {
             console.log("\n======================================================")
         }
         if (event.key === "M") {
-            document.getElementById("materialstats").style.opacity = 1;
-            document.getElementById("materialstats").style.height = "160px";
+            wakeup();
         }
     }
 })
