@@ -127,10 +127,6 @@ document.body.onload = function bodyLoad() {
     document.body.addEventListener("click", function () {
         PlayMusic();
     });
-
-    load();
-    }    
-    setTimeout(PlayMusic,5000);
     load();
 }
 
@@ -188,35 +184,6 @@ function load() {
         if (typeof savegame.name !== "undefined") document.querySelectorAll(".playerName").forEach(span => {
             span.innerText = savegame.name;
         });
-	} catch(err) {
-		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
-	}
-}
-
-// Saving and Loading
-function save() {
-    var save = {
-        materials_amounts: {
-            coins: materials[0].amount,
-            wood: materials[1].amount,
-            stone: materials[2].amount
-        }
-    };
-    try {
-        localStorage.setItem("save",JSON.stringify(save));
-        console.log("Saved game:");
-        console.log(localStorage.save)
-	} catch(err) {
-		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
-	}
-}
-
-function load() {
-    var savegame = JSON.parse(localStorage.getItem("save"));
-    try {
-        localStorage.getItem("save");
-        console.log("Saved game:");
-        console.log(localStorage.save)
 	} catch(err) {
 		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
 	}
