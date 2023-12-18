@@ -121,8 +121,14 @@ document.body.onload = function bodyLoad() {
     document.getElementsByClassName("PtotHP")[0].innerHTML = player.totHP;
 
     function PlayMusic() {
-        var play=document.getElementById("music");
+        var play = document.getElementById("music");
         play.play();
+    }
+    document.body.addEventListener("click", function () {
+        PlayMusic();
+    });
+
+    load();
     }    
     setTimeout(PlayMusic,5000);
     load();
@@ -131,6 +137,7 @@ document.body.onload = function bodyLoad() {
 document.querySelectorAll(".playerName").forEach(span => {
     span.addEventListener("click", function changeName() {
         let newName = prompt("Choose your new name, player:", "Player");
+        player.name = newName;
         if (newName == "") {
             newName = "Player";
         };
@@ -139,6 +146,52 @@ document.querySelectorAll(".playerName").forEach(span => {
         });
     });
 });
+
+function wakeup() {
+    document.getElementById("materialstats").style.opacity = 1;
+    document.getElementById("materialstats").style.height = "160px";
+}
+
+
+// Saving and loading
+
+function save() {
+    var save = {
+        materials_amount: {
+            coins: materials[0].amount,
+            wood: materials[1].amount,
+            stone: materials[2].amount
+        },
+        materials_amountPS: {
+            coins: materials[0].amount_per_second,
+            wood: materials[1].amount_per_second,
+            stone: materials[2].amount_per_second
+        },
+        name: player.name,
+    };
+    try {
+        localStorage.setItem("save",JSON.stringify(save));
+        console.log("Saved game:");
+        console.log(localStorage.save)
+	} catch(err) {
+		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
+	}
+}
+
+function load() {
+    var savegame = JSON.parse(localStorage.getItem("save"));
+    try {
+        localStorage.getItem("save");
+        console.log("Saved game:");
+        console.log(localStorage.save)
+        if (typeof savegame.name !== "undefined") player.name = savegame.name;
+        if (typeof savegame.name !== "undefined") document.querySelectorAll(".playerName").forEach(span => {
+            span.innerText = savegame.name;
+        });
+	} catch(err) {
+		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
+	}
+}
 
 // Saving and Loading
 function save() {
@@ -186,6 +239,9 @@ document.body.addEventListener('keypress', function(event) {
             console.log("updated map:\n(Enabled battling)\n ");
             console.info(unlockables);
             console.log("\n======================================================")
+        }
+        if (event.key === "M") {
+            wakeup();
         }
     }
 })
