@@ -41,6 +41,8 @@ div#stats {
     height: fit-content;
     text-align: center;
     padding: 15px;
+    opacity: 0;
+    transition: opacity 1.2s;
 }
 div#actions {
     color: #CCC;
@@ -51,6 +53,8 @@ div#actions {
     height: fit-content;
     text-align: center;
     padding: 15px;
+    opacity: 0;
+    transition: opacity 1.2s;
 }
 div.fight {
     position: relative;
@@ -78,4 +82,16 @@ div#materialstats {
     opacity: 0;
     height: 0px;
     transition: opacity 1.2s linear 1.2s, height 1.2s;
+}
+div#story {
+    position: relative;
+    width: 300px;
+    text-align: center;
+    color: #CCC;
+    background-color: #333;
+    border-radius: 3%;
+    border: 6px solid #292929;
+    left: 25px;
+    height: fit-content;
+    padding: 15px;
 }
