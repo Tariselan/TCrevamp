@@ -3,7 +3,6 @@
     <head>
         <title>The Collection</title>
         <script type="module" src="script.js" defer></script>
-        <script type="module" src="texts.js" defer></script>
         <link rel="stylesheet" href="style.css">
         <link rel="icon" type="image/x-icon" href="images/favicon.bmp">
     </head>
@@ -13,10 +12,10 @@
             <div class="header"><h1>The Collection</h1></div>
             <div class="menu">
                 <div id="stats">
-                    <h1><b><span title="Click to change name" class="playerName">Player</span>'s Stats</b></h1>
+                    <h1><b><span title="Click to change name" class="playerName">Freya</span>'s Stats</b></h1>
                     <hr color="#292929">
                     <h3>Name:</h3>
-                    <b><span title="Click to change name" class="playerName">Player</span></b>
+                    <b><span title="Click to change name" class="playerName">Freya</span></b> <span id="playerpronouns" title="Click to change pronouns">(she/her)</span>
                     <p></p>
                     <div id="materialstats">
                         <hr color="#292929" width="70%">
@@ -32,10 +31,11 @@
             <div class="main">
                 <div id="actions">
                     <h2>Actions</h2>
-                    <button id="wakeupbutton" onclick="wakeup()">Wake up</button>
+                    
                 </div>
-                <div id="story">
-                    <p id="text"></p>
+                <div id="storytext_div">
+                    <p id="storytext_p"></p>
+                    <button id="wakeupbutton">Wake up</button>
                 </div>
             </div>
             <div class="right">
@@ -43,7 +43,7 @@
                     <h3>Turn <span class="turnNum">1</span> | <b style="cursor: pointer;"onclick="Battlemode()"><span title="Locked" id="Battlemode">Enter Battle</span></b></h3>
                     <hr color="#292929">
                     <br>
-                    <b><span title="Click to change name" class="playerName">Player</span></b><br>
+                    <b><span title="Click to change name" class="playerName">Freya</span></b><br>
                     HP: <span class="PcurHP">0</span>/<span class="PtotHP">0</span><br>
                     <div class="Battlemode">
                         You used <span class="pMoveName">attack</span> and it <span class="pMoveAcc">hit</span><br>

@@ -24,7 +24,7 @@ body {
   padding: 10px;
 }
 
-span.playerName {
+span.playerName, span#playerpronouns {
     cursor: pointer;
 }
 span:hover {
@@ -83,7 +83,7 @@ div#materialstats {
     height: 0px;
     transition: opacity 1.2s linear 1.2s, height 1.2s;
 }
-div#story {
+div#storytext_div {
     position: relative;
     width: 300px;
     text-align: center;
@@ -94,4 +94,5 @@ div#story {
     left: 25px;
     height: fit-content;
     padding: 15px;
+    transition: opacity 1.2s;
 }
