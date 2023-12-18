@@ -2,5 +2,8 @@
     "journal_entries": [
         "entry 1",
         "entry 2"
+    ],
+    "story_entries": [
+        "Birds call in the distance, light rain trickles onto the forest floor around you. <br>It is followed by a line break (yea we're getting meta) "
     ]
 }

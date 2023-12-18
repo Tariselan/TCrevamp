@@ -90,8 +90,6 @@ function loadBattle() {
 
 function playerattack(attackId) {
     let currentAttack = attacks[attackId];
-
-    
 }
 
 function enemyattack(attackId) {
@@ -146,6 +144,7 @@ document.querySelectorAll(".playerName").forEach(span => {
 function wakeup() {
     document.getElementById("materialstats").style.opacity = 1;
     document.getElementById("materialstats").style.height = "160px";
+    document.getElementById("wakeupbutton").remove();
 }
 
 
