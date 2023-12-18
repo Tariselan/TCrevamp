@@ -41,11 +41,17 @@ var enemies = {
     2: new Enemy(2, "Wild Dog", 10, [attacks.bite, attacks.scratch])
 }
 
+var materials = {
+    0: new Material(0, "Coins", 0, 0),
+    1: new Material(1, "Wood", 0, 0),
+    2: new Material(2, "Stone", 0, 0)
+}
 
 // the rest ig lol
 var player = {
     name: "Player",
     attacks: [attacks.punch],
+    inventory: [],
     totHP: 100,
     curHP: 100
 }
@@ -119,6 +125,7 @@ document.body.onload = function bodyLoad() {
         play.play();
     }    
     setTimeout(PlayMusic,5000);
+    load();
 }
 
 document.querySelectorAll(".playerName").forEach(span => {
@@ -133,6 +140,34 @@ document.querySelectorAll(".playerName").forEach(span => {
     });
 });
 
+// Saving and Loading
+function save() {
+    var save = {
+        materials_amounts: {
+            coins: materials[0].amount,
+            wood: materials[1].amount,
+            stone: materials[2].amount
+        }
+    };
+    try {
+        localStorage.setItem("save",JSON.stringify(save));
+        console.log("Saved game:");
+        console.log(localStorage.save)
+	} catch(err) {
+		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
+	}
+}
+
+function load() {
+    var savegame = JSON.parse(localStorage.getItem("save"));
+    try {
+        localStorage.getItem("save");
+        console.log("Saved game:");
+        console.log(localStorage.save)
+	} catch(err) {
+		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
+	}
+}
 
 // DEV TOOLS
 document.body.addEventListener('keypress', function(event) {
