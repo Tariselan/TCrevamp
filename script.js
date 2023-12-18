@@ -128,63 +128,8 @@ function Battlemode() {
     }
 }
 
-
-// Loading + listeners
-document.body.onload = function bodyLoad() {
-    document.getElementsByClassName("playerName")[0].innerText = player.name;
-    document.getElementsByClassName("PcurHP")[0].innerHTML = player.totHP;
-    document.getElementsByClassName("PtotHP")[0].innerHTML = player.totHP;
-    document.getElementById("playerpronouns").innerText = pronouns[currentpronouns];
-
-    function PlayMusic() {
-        var play = document.getElementById("music");
-        play.play();
-    }
-    document.body.addEventListener("click", function () {
-        PlayMusic();
-    });
-    load();
-
-    // checks if player has woken up yet
-}
-
-document.querySelectorAll(".playerName").forEach(span => {
-    span.addEventListener("click", function changeName() {
-        let newName = prompt("Choose your new name, player:", "Freya");
-        player.name = newName;
-        if (newName == "") {
-            newName = "Freya";
-        };
-        document.querySelectorAll(".playerName").forEach(span => {
-            span.innerText = newName;
-        });
-    });
-});
-
-
-document.getElementById("wakeupbutton").addEventListener("click", function wakeup() {
-    function animation0() {
-        document.getElementById("storytext_div").style.opacity = 0;
-        setTimeout(animation1, 1200)
-    }
-    
-    function animation1() {
-        document.getElementById("actions").style.opacity = 1;
-        document.getElementById("stats").style.opacity = 1;
-        setTimeout(animation2(), 2400);
-    }
-    function animation2() {
-        document.getElementById("materialstats").style.opacity = 1;
-        document.getElementById("materialstats").style.height = "160px";
-    }
-    document.getElementById("wakeupbutton").remove();
-    unlockables.set("woken_up?", true);
-    animation0();
-})
-
 // Saving and loading
-
-function save() {
+document.getElementById("save_button").addEventListener("click", function save() {
     var save = {
         // saves amount of materials and how much per second
         materials_amount: {
@@ -199,7 +144,12 @@ function save() {
         },
         // saves name of player
         name: player.name,
-    };
+        unlockables: {
+            woken_up: unlockables.get("woken_up?"),
+            basic_resources: unlockables.get("basic_resources"),
+            battle: unlockables.get("battle")
+        }
+    }
     try {
         // if successful, converts save variable into a JSON file and saves it to local storage as 'save'
         localStorage.setItem("save",JSON.stringify(save));
@@ -208,8 +158,7 @@ function save() {
 	} catch(err) {
 		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
 	}
-}
-
+})
 function load() {
     // accesses localstorage and parses the save state
     var savegame = JSON.parse(localStorage.getItem("save"));
@@ -252,10 +201,62 @@ document.body.addEventListener('keypress', function(event) {
 })
 
 
-
-
 /*
 Text imports around story and 
 */
 import Texts from './JSON/text.json' assert {type: 'json'};
 const story = Texts.story_entries;
+
+
+// Loading + listeners
+
+document.querySelectorAll(".playerName").forEach(span => {
+    span.addEventListener("click", function changeName() {
+        let newName = prompt("Choose your new name, player:", "Freya");
+        player.name = newName;
+        if (newName == "") {
+            newName = "Freya";
+        };
+        document.querySelectorAll(".playerName").forEach(span => {
+            span.innerText = newName;
+        });
+    });
+});
+
+
+document.getElementById("wakeupbutton").addEventListener("click", function wakeup() {
+    function animation0() {
+        document.getElementById("storytext_div").style.opacity = 0;
+        setTimeout(animation1, 1200)
+    }
+    
+    function animation1() {
+        document.getElementById("actions").style.opacity = 1;
+        document.getElementById("stats").style.opacity = 1;
+        setTimeout(animation2(), 2400);
+    }
+    function animation2() {
+        document.getElementById("materialstats").style.opacity = 1;
+        document.getElementById("materialstats").style.height = "160px";
+    }
+    document.getElementById("wakeupbutton").remove();
+    unlockables.set("woken_up?", true);
+    animation0();
+})
+
+document.body.onload = function bodyLoad() {
+    document.getElementsByClassName("playerName")[0].innerText = player.name;
+    document.getElementsByClassName("PcurHP")[0].innerHTML = player.totHP;
+    document.getElementsByClassName("PtotHP")[0].innerHTML = player.totHP;
+    document.getElementById("playerpronouns").innerText = pronouns[currentpronouns];
+
+    function PlayMusic() {
+        var play = document.getElementById("music");
+        play.play();
+    }
+    document.body.addEventListener("click", function () {
+        PlayMusic();
+    });
+    load();
+
+}
