@@ -28,20 +28,20 @@ class Material {
 }
 
 // lists of things
-var attacks = {
+const attacks = {
     0: new Attack(0, "Punch", 2, 0.9),
     1: new Attack(1, "Bite", 4, 0.5),
     2: new Attack(2, "Kick", 3, 0.8),
     3: new Attack(3, "Scratch", 1, 1)
 }
 
-var enemies = {
+const enemies = {
     0: new Enemy(0, "Test Enemy", 20, [attacks.punch]),
     1: new Enemy(1, "Drunk Man", 45, [attacks.punch, attacks.bite]),
     2: new Enemy(2, "Wild Dog", 10, [attacks.bite, attacks.scratch])
 }
 
-var materials = {
+const materials = {
     0: new Material(0, "Coins", 0, 0),
     1: new Material(1, "Wood", 0, 0),
     2: new Material(2, "Stone", 0, 0)
@@ -62,34 +62,31 @@ const pronouns = [
     "(they/them)"
 ];
 
-var currentpronouns = 0; // 0 == she/her, 1 = they/them, 2 = 
+let currentpronouns = 0; // 0 == she/her, 1 = they/them, 2 = 
 document.getElementById("playerpronouns").addEventListener("click", function changepronouns() {
     currentpronouns = (currentpronouns + 1) % pronouns.length;
     document.getElementById("playerpronouns").innerText = pronouns[currentpronouns];
 })
 
-var unlockables = new Map([
+let unlockables = new Map([
     ["woken_up?", false],
     ["basic_resources", true],
     ["battle", false]
 ]);
 
-var modes = new Map([
+let modes = new Map([
     ["devtools", false],
     ["battle", false]
 ])
 
-
-
-
-
-var currentEnemy = {
+let currentEnemy = {
     "id": 0,
     "totHP": 100,
     "curHP": 100
 }
 // loading functions
-function loadEnemy(enemyId) {
+
+const loadEnemy = (enemyId) => {
     let placeholder = enemies[enemyId];
     for (let i = 0; i < document.getElementsByClassName("enemyName").length; i++) {
         document.getElementsByClassName("enemyName")[i].innerHTML = placeholder.name;
@@ -98,23 +95,26 @@ function loadEnemy(enemyId) {
     document.getElementsByClassName("EcurHP")[0].innerHTML = placeholder.totHP;
 }
 
-function loadBattle() {
+
+const loadBattle = () => {
     currentEnemy.id = Math.round(Math.random()*(Object.keys(enemies).length-2)+1);
     loadEnemy(currentEnemy.id);
 }
 
 // functions
 
-function playerattack(attackId) {
+const playerattack = (attackId) => {
     let currentAttack = attacks[attackId];
 }
 
-function enemyattack(attackId) {
+const enemyattack = (attackId) => {
     let currentAttack = attacks[attackId];
 }
 
 
-function Battlemode() {
+
+
+document.getElementById("Battlemode").addEventListener("click", function Battlemode() {
     if (!modes.get("battle") && unlockables.get("battle")) {
         loadBattle();
         modes.set("battle", true);
@@ -126,11 +126,11 @@ function Battlemode() {
         document.getElementById("Battlemode").innerText = "Enter Battle";
         document.getElementsByClassName("Battlemode")[0].style.opacity = 0;
     }
-}
+})
 
 // Saving and loading
 document.getElementById("save_button").addEventListener("click", function save() {
-    var save = {
+    let save = {
         // saves amount of materials and how much per second
         materials_amount: {
             coins: materials[0].amount,
@@ -161,7 +161,7 @@ document.getElementById("save_button").addEventListener("click", function save()
 })
 function load() {
     // accesses localstorage and parses the save state
-    var savegame = JSON.parse(localStorage.getItem("save"));
+    let savegame = JSON.parse(localStorage.getItem("save"));
     try {
         localStorage.getItem("save");
         console.log("Saved game:");
