@@ -86,13 +86,14 @@ div#materialstats {
 }
 div#storytext_div {
     position: relative;
-    width: 300px;
+    width: 500px;
     text-align: center;
+    font-style: italic;
     color: #CCC;
     background-color: #333;
     border-radius: 3%;
     border: 6px solid #292929;
-    left: -20px;
+    left: -50px;
     height: fit-content;
     padding: 15px;
     transition: opacity 1.2s;

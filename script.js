@@ -74,7 +74,7 @@ let unlockables = new Map([
     ["battle", false]
 ]);
 
-var modes = new Map([
+let modes = new Map([
     ["devtools", false],
     ["ACCESSIBILITY_MODE", false],
     ["battle", false]
@@ -131,6 +131,9 @@ const wakeup = () => {
     unlockables.set("woken_up?", true);
     animation0();
 }
+document.getElementById("wakeupbutton").addEventListener("click", function run() {
+    wakeup()
+})
 
 const ACCESSIBILY_MODE = () => {
     if (!modes.get("ACCESSIBILITY_MODE")){
@@ -205,13 +208,16 @@ function load() {
     let savegame = JSON.parse(localStorage.getItem("save"));
     try {
         localStorage.getItem("save");
-        console.log("Saved game:");
+        console.log("Loaded~ game:");
         console.log(localStorage.save)
         // changes player name to saved name :)
-        if (typeof savegame.name !== "undefined") player.name = savegame.name;
-        if (typeof savegame.name !== "undefined") document.querySelectorAll(".playerName").forEach(span => {
-            span.innerText = savegame.name;
-        });
+        if (typeof savegame.name !== "undefined"){
+            player.name = savegame.name;
+            document.querySelectorAll(".playerName").forEach(span => {
+                span.innerText = savegame.name;
+            });
+        }
+        unlockables.set("woken_up?", savegame.unlockables.woken_up)
 	} catch(err) {
 		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
 	}
@@ -231,7 +237,7 @@ document.body.addEventListener('keypress', function(event) {
         - "~" => turns on dev mode
         - "B" => makes battle div visible and enables battling
         - "X" => loads battle
-
+        - "!" => reset
     */
     if (event.key === '~') {
         modes.set("devtools", true);
@@ -246,18 +252,27 @@ document.body.addEventListener('keypress', function(event) {
             console.info(unlockables);
             console.log("\n======================================================")
         }
-        
         if (event.key === 'X') {
             loadBattle();
+        }
+        if (event.key === '!') {
+            let user_wants_to_reset = prompt("Are you sure you want to reset", "Yes");
+            if (user_wants_to_reset == "Yes") {
+                reset();
+            }
         }
     }
     /*
     list of actions:
         - "w" => wakeup function
         - "A" => accessibility mode ON
+        - "s" => save
     */
     if (event.key === "A") {
         ACCESSIBILY_MODE();
+    }
+    if (event.key === "s") {
+        save();
     }
     if (event.key === "w") {
         wakeup();
@@ -291,9 +306,7 @@ document.querySelectorAll(".playerName").forEach(span => {
 });
 
 
-document.getElementById("wakeupbutton").addEventListener("click", function run() {
-    wakeup()
-})
+
 
 document.body.onload = function bodyLoad() {
     document.getElementsByClassName("playerName")[0].innerText = player.name;
@@ -310,4 +323,49 @@ document.body.onload = function bodyLoad() {
     });
     load();
 
+    // check if player has woken up
+    if (unlockables.get("woken_up?")) {
+        wakeup()
+    }
+    // if player hasnt awoken
+    if (!unlockables.get("woken_up?")) {
+        document.getElementById("storytext_p").innerHTML = story[0];
+    }
+}
+
+
+
+/*
+
+DEFAULT FOR RESETTING PURPOSES
+
+*/
+
+const reset = () => {
+    let save = {
+        materials_amount: {
+            coins: 0,
+            wood: 0,
+            stone: 0
+        },
+        materials_amountPS: {
+            coins: 0,
+            wood: 0,
+            stone: 0
+        },
+        // saves name of player
+        name: "Freya",
+        unlockables: {
+            woken_up: false,
+            basic_resources: true,
+            battle: false
+        }
+    }
+    try {
+        localStorage.setItem("save",JSON.stringify(save));
+        alert("Game has been reset")
+        console.log(save);
+	} catch(err) {
+		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
+	}
 }
