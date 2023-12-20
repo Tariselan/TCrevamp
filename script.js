@@ -153,6 +153,7 @@ document.getElementById("save_button").addEventListener("click", function save()
     try {
         // if successful, converts save variable into a JSON file and saves it to local storage as 'save'
         localStorage.setItem("save",JSON.stringify(save));
+        alert("Saved Game")
         console.log("Saved game:");
         console.log(localStorage.save)
 	} catch(err) {
@@ -206,6 +207,9 @@ Text imports around story and
 */
 import Texts from './JSON/text.json' assert {type: 'json'};
 const story = Texts.story_entries;
+
+
+
 
 
 // Loading + listeners

@@ -10,7 +10,7 @@ body {
 .header { height: fit-content; grid-area: header; }
 .menu { grid-area: menu; position: relative; top: 15%;  }
 
-.main { grid-area: main;}
+.main { grid-area: main; position: relative; left: 13%;}
 .right { grid-area: right; position: relative; top: 15%;  }
 .footer { grid-area: footer; }
 
@@ -91,7 +91,7 @@ div#storytext_div {
     background-color: #333;
     border-radius: 3%;
     border: 6px solid #292929;
-    left: 25px;
+    left: -20px;
     height: fit-content;
     padding: 15px;
     transition: opacity 1.2s;
