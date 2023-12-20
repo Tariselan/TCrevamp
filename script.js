@@ -74,8 +74,9 @@ let unlockables = new Map([
     ["battle", false]
 ]);
 
-let modes = new Map([
+var modes = new Map([
     ["devtools", false],
+    ["ACCESSIBILITY_MODE", false],
     ["battle", false]
 ])
 
@@ -111,8 +112,42 @@ const enemyattack = (attackId) => {
     let currentAttack = attacks[attackId];
 }
 
+const wakeup = () => {
+    function animation0() {
+        document.getElementById("storytext_div").style.opacity = 0;
+        setTimeout(animation1, 1200)
+    }
+    
+    function animation1() {
+        document.getElementById("actions").style.opacity = 1;
+        document.getElementById("stats").style.opacity = 1;
+        setTimeout(animation2(), 2400);
+    }
+    function animation2() {
+        document.getElementById("materialstats").style.opacity = 1;
+        document.getElementById("materialstats").style.height = "160px";
+    }
+    document.getElementById("wakeupbutton").remove();
+    unlockables.set("woken_up?", true);
+    animation0();
+}
 
-
+const ACCESSIBILY_MODE = () => {
+    if (!modes.get("ACCESSIBILITY_MODE")){
+        document.body.style.fontFamily = "'Courier New', Courier, monospace";
+        document.querySelectorAll('.button').forEach(button => {
+            button.style.fontFamily = "'Courier New', Courier, monospace";
+            modes.set("ACCESSIBILITY_MODE", true);
+        })
+    }
+    else{
+        document.body.style.fontFamily = "'Times New Roman', Times, serif";
+        document.querySelectorAll('.button').forEach(button => {
+            button.style.fontFamily = "Arial, Helvetica, sans-serif";
+            modes.set("ACCESSIBILITY_MODE", false);
+        })
+    }
+}
 
 document.getElementById("Battlemode").addEventListener("click", function Battlemode() {
     if (!modes.get("battle") && unlockables.get("battle")) {
@@ -129,7 +164,7 @@ document.getElementById("Battlemode").addEventListener("click", function Battlem
 })
 
 // Saving and loading
-document.getElementById("save_button").addEventListener("click", function save() {
+function save() {
     let save = {
         // saves amount of materials and how much per second
         materials_amount: {
@@ -159,7 +194,12 @@ document.getElementById("save_button").addEventListener("click", function save()
 	} catch(err) {
 		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
 	}
+}
+document.getElementById("save_button").addEventListener("click", function run() {
+    save();
 })
+
+
 function load() {
     // accesses localstorage and parses the save state
     let savegame = JSON.parse(localStorage.getItem("save"));
@@ -178,15 +218,26 @@ function load() {
 }
 
 // DEV TOOLS
+
+/*
+   KEYBOARD NAVIGATION IN CODE
+*/
 document.body.addEventListener('keypress', function(event) {
+    /*
+    allows testers to quickly use certain functions via the keyboard
+    note: letters are case sensitive, just to ensure it's intentional
+
+    list of actions:
+        - "~" => turns on dev mode
+        - "B" => makes battle div visible and enables battling
+        - "X" => loads battle
+
+    */
     if (event.key === '~') {
         modes.set("devtools", true);
         alert("dev mode on");
     }
     if (modes.get("devtools")) {
-        if (event.key === 'X') {
-            loadBattle();
-        }
         if (event.key === 'B') {
             document.getElementsByClassName("fight")[0].style.opacity = 1;
             unlockables.set("battle", true);
@@ -195,9 +246,21 @@ document.body.addEventListener('keypress', function(event) {
             console.info(unlockables);
             console.log("\n======================================================")
         }
-        if (event.key === "M") {
-            wakeup();
+        
+        if (event.key === 'X') {
+            loadBattle();
         }
+    }
+    /*
+    list of actions:
+        - "w" => wakeup function
+        - "A" => accessibility mode ON
+    */
+    if (event.key === "A") {
+        ACCESSIBILY_MODE();
+    }
+    if (event.key === "w") {
+        wakeup();
     }
 })
 
@@ -228,24 +291,8 @@ document.querySelectorAll(".playerName").forEach(span => {
 });
 
 
-document.getElementById("wakeupbutton").addEventListener("click", function wakeup() {
-    function animation0() {
-        document.getElementById("storytext_div").style.opacity = 0;
-        setTimeout(animation1, 1200)
-    }
-    
-    function animation1() {
-        document.getElementById("actions").style.opacity = 1;
-        document.getElementById("stats").style.opacity = 1;
-        setTimeout(animation2(), 2400);
-    }
-    function animation2() {
-        document.getElementById("materialstats").style.opacity = 1;
-        document.getElementById("materialstats").style.height = "160px";
-    }
-    document.getElementById("wakeupbutton").remove();
-    unlockables.set("woken_up?", true);
-    animation0();
+document.getElementById("wakeupbutton").addEventListener("click", function run() {
+    wakeup()
 })
 
 document.body.onload = function bodyLoad() {

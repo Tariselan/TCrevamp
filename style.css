@@ -6,6 +6,7 @@ body {
     background-color: #222;
     display: flex;
     justify-content: center;
+    font-family: 'Times New Roman', Times, serif
 }
 .header { height: fit-content; grid-area: header; }
 .menu { grid-area: menu; position: relative; top: 15%;  }
