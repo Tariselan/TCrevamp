@@ -42,7 +42,7 @@ const enemies = {
 }
 
 const materials = {
-    0: new Material(0, "Coins", 0, 0),
+    0: new Material(0, "Coins", 1, 0),
     1: new Material(1, "Wood", 0, 0),
     2: new Material(2, "Stone", 0, 0)
 }
@@ -69,7 +69,7 @@ document.getElementById("playerpronouns").addEventListener("click", function cha
 })
 
 let unlockables = new Map([
-    ["woken_up?", false],
+    ["gotten_up", false],
     ["basic_resources", true],
     ["battle", false]
 ]);
@@ -112,7 +112,7 @@ const enemyattack = (attackId) => {
     let currentAttack = attacks[attackId];
 }
 
-const wakeup = () => {
+const getup = () => {
     function animation0() {
         document.getElementById("storytext_div").style.opacity = 0;
         setTimeout(animation1, 1200)
@@ -127,12 +127,12 @@ const wakeup = () => {
         document.getElementById("materialstats").style.opacity = 1;
         document.getElementById("materialstats").style.height = "160px";
     }
-    document.getElementById("wakeupbutton").remove();
-    unlockables.set("woken_up?", true);
+    document.getElementById("getupbutton").remove();
+    unlockables.set("gotten_up", true);
     animation0();
 }
-document.getElementById("wakeupbutton").addEventListener("click", function run() {
-    wakeup()
+document.getElementById("getupbutton").addEventListener("click", function run() {
+    getup()
 })
 
 const ACCESSIBILY_MODE = () => {
@@ -183,7 +183,7 @@ function save() {
         // saves name of player
         name: player.name,
         unlockables: {
-            woken_up: unlockables.get("woken_up?"),
+            gotten_up: unlockables.get("gotten_up"),
             basic_resources: unlockables.get("basic_resources"),
             battle: unlockables.get("battle")
         }
@@ -217,7 +217,10 @@ function load() {
                 span.innerText = savegame.name;
             });
         }
-        unlockables.set("woken_up?", savegame.unlockables.woken_up)
+        unlockables.forEach (function(value, key) {
+            console.log(savegame.unlockables[key])
+            console.log(key)
+        })
 	} catch(err) {
 		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
 	}
@@ -264,7 +267,7 @@ document.body.addEventListener('keypress', function(event) {
     }
     /*
     list of actions:
-        - "w" => wakeup function
+        - "g" => getup function
         - "A" => accessibility mode ON
         - "s" => save
     */
@@ -274,8 +277,8 @@ document.body.addEventListener('keypress', function(event) {
     if (event.key === "s") {
         save();
     }
-    if (event.key === "w") {
-        wakeup();
+    if (event.key === "g") {
+        getup();
     }
 })
 
@@ -323,12 +326,12 @@ document.body.onload = function bodyLoad() {
     });
     load();
 
-    // check if player has woken up
-    if (unlockables.get("woken_up?")) {
-        wakeup()
+    // check if player has gotten up
+    if (unlockables.get("gotten_up")) {
+        getup()
     }
-    // if player hasnt awoken
-    if (!unlockables.get("woken_up?")) {
+    // if player hasnt gotten up
+    if (!unlockables.get("gotten_up")) {
         document.getElementById("storytext_p").innerHTML = story[0];
     }
 }
@@ -344,7 +347,7 @@ DEFAULT FOR RESETTING PURPOSES
 const reset = () => {
     let save = {
         materials_amount: {
-            coins: 0,
+            coins: 1,
             wood: 0,
             stone: 0
         },
@@ -356,7 +359,7 @@ const reset = () => {
         // saves name of player
         name: "Freya",
         unlockables: {
-            woken_up: false,
+            gotten_up: false,
             basic_resources: true,
             battle: false
         }

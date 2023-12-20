@@ -3,3 +3,6 @@ Extensions used while devving this:
  - GitHub Pull Requests and Issues
  - Live Server v5.7.9
  - Word Count v0.1.0
+
+
+ I recommend turning on word wrap for JSON

@@ -9,10 +9,11 @@ body {
     font-family: 'Times New Roman', Times, serif
 }
 .header { height: fit-content; grid-area: header; }
-.menu { grid-area: menu; position: relative; top: 15%;  }
+.menu { grid-area: menu; position: relative; top: 15%; left:30%;  }
 
-.main { grid-area: main; position: relative; left: 13%;}
-.right { grid-area: right; position: relative; top: 15%;  }
+.main { grid-area: main; position: relative; left: 13%;
+width: 550px;}
+.right { grid-area: right; position: relative; top: 15%;  right:40%;}
 .footer { grid-area: footer; }
 
 .grid-container {
@@ -46,6 +47,8 @@ div#stats {
     transition: opacity 1.2s;
 }
 div#actions {
+    position: relative;
+    left: 70px;
     color: #CCC;
     background-color: #333;
     border-radius: 3%;
@@ -86,15 +89,16 @@ div#materialstats {
 }
 div#storytext_div {
     position: relative;
-    width: 500px;
+    width: 650px;
+    top: -40px;
     text-align: center;
     font-style: italic;
     color: #CCC;
     background-color: #333;
     border-radius: 3%;
     border: 6px solid #292929;
-    left: -50px;
+    left: -150px;
     height: fit-content;
-    padding: 15px;
+    padding: 35px;
     transition: opacity 1.2s;
 }
