@@ -208,7 +208,7 @@ function load() {
     let savegame = JSON.parse(localStorage.getItem("save"));
     try {
         localStorage.getItem("save");
-        console.log("Loaded~ game:");
+        console.log("Loaded game:");
         console.log(localStorage.save)
         // changes player name to saved name :)
         if (typeof savegame.name !== "undefined"){
@@ -218,8 +218,7 @@ function load() {
             });
         }
         unlockables.forEach (function(value, key) {
-            console.log(savegame.unlockables[key])
-            console.log(key)
+            unlockables.set(key, savegame.unlockables[key])
         })
 	} catch(err) {
 		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
@@ -270,6 +269,7 @@ document.body.addEventListener('keypress', function(event) {
         - "g" => getup function
         - "A" => accessibility mode ON
         - "s" => save
+        - "n" => next lol
     */
     if (event.key === "A") {
         ACCESSIBILY_MODE();
@@ -280,6 +280,9 @@ document.body.addEventListener('keypress', function(event) {
     if (event.key === "g") {
         getup();
     }
+    if (event.key === "n") {
+        NEXT();
+    }
 })
 
 
@@ -289,8 +292,44 @@ Text imports around story and
 import Texts from './JSON/text.json' assert {type: 'json'};
 const story = Texts.story_entries;
 
+/*
+story_entry_number stores which story entry the player is up to, 0 is the introduction
 
+entry_part_number stores which part of the story entry they're up to, the intro being split into 3 parts (0,1,2) respectively
+*/
 
+var story_entry_number = 0;
+var entry_part_number = 0;
+
+var story_location = [story_entry_number, entry_part_number];
+
+function NEXT() {
+    let amount_of_parts = story[story_entry_number].length - 1;
+    if (entry_part_number < amount_of_parts) {
+        entry_part_number++;
+        story_location = [story_entry_number, entry_part_number];
+        document.getElementById("storytext_p").innerText = story[story_location[0]][story_location[1]];
+        if (entry_part_number == (amount_of_parts)) {
+            /*
+            listen, i know this conditional is here in two locations. but if
+            i move it down into the block with the other conditional, the code
+            just fucking breaks :((
+            */
+            document.getElementById("getupbutton").style.visibility = "visible";
+            document.getElementById("next_part_button").style.visibility = "hidden";
+        }
+    }   
+    else if (entry_part_number == amount_of_parts) {
+        entry_part_number = 0;
+        story_entry_number++;
+        story_location = [story_entry_number, entry_part_number];
+        document.getElementById("storytext_p").innerText = story[story_location[0]][story_location[1]];
+    }
+}
+
+document.getElementById("next_part_button").addEventListener("click", function(){
+    NEXT();
+})
 
 
 // Loading + listeners
@@ -332,7 +371,7 @@ document.body.onload = function bodyLoad() {
     }
     // if player hasnt gotten up
     if (!unlockables.get("gotten_up")) {
-        document.getElementById("storytext_p").innerHTML = story[0];
+        document.getElementById("storytext_p").innerText = story[story_location[0]][story_location[1]];
     }
 }
 
@@ -366,7 +405,8 @@ const reset = () => {
     }
     try {
         localStorage.setItem("save",JSON.stringify(save));
-        alert("Game has been reset")
+        alert("Game has been reset");
+        location.reload();
         console.log(save);
 	} catch(err) {
 		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')

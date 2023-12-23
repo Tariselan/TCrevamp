@@ -102,3 +102,6 @@ div#storytext_div {
     padding: 35px;
     transition: opacity 1.2s;
 }
+button#getupbutton {
+    visibility: hidden;
+}
