@@ -50,6 +50,7 @@ const materials = {
 // the rest ig lol
 var player = {
     name: "Freya",
+    currentpronouns: 0, // 0 == she/her, 1 = they/them, 2 = he/him
     attacks: [attacks.punch],
     inventory: [],
     totHP: 100,
@@ -60,18 +61,17 @@ var player = {
 
 const pronouns = [
     "(she/her)",
-    "(he/him)",
-    "(they/them)"
+    "(they/them)",
+    "(he/him)"
 ];
 
-let currentpronouns = 0; // 0 == she/her, 1 = they/them, 2 = 
+ 
 document.getElementById("playerpronouns").addEventListener("click", function changepronouns() {
-    currentpronouns = (currentpronouns + 1) % pronouns.length;
-    document.getElementById("playerpronouns").innerText = pronouns[currentpronouns];
+    player.currentpronouns = (player.currentpronouns + 1) % pronouns.length;
+    document.getElementById("playerpronouns").innerText = pronouns[player.currentpronouns];
 })
 
 let unlockables = new Map([
-    ["has_played", false],
     ["gotten_up", false],
     ["basic_resources", true],
     ["battle", false]
@@ -227,9 +227,11 @@ function load() {
         }
         player.first_played = savegame.player_attributes.first_played;
         player.has_played = savegame.player_attributes.has_played;
-        unlockables.forEach (function(key) {
-            unlockables.set(key, savegame.unlockables[key])
-        })
+        unlockables.set("gotten_up", savegame.unlockables.gotten_up);
+        unlockables.set("basic_resources", savegame.unlockables.basic_resources);
+        unlockables.set("battle", savegame.unlockables.battle);
+        
+        console.log(unlockables)
 	} catch(err) {
 		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
 	}
@@ -367,13 +369,14 @@ document.body.onload = function bodyLoad() {
     document.getElementsByClassName("playerName")[0].innerText = player.name;
     document.getElementsByClassName("PcurHP")[0].innerHTML = player.totHP;
     document.getElementsByClassName("PtotHP")[0].innerHTML = player.totHP;
-    document.getElementById("playerpronouns").innerText = pronouns[currentpronouns];
+    document.getElementById("playerpronouns").innerText = pronouns[player.currentpronouns];
 
     
     load();
 
     // check if player has gotten up
     if (unlockables.get("gotten_up")) {
+        getup();
         getup();
         
     }
