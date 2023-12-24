@@ -5,9 +5,12 @@
         <script type="module" src="script.js" defer></script>
         <link rel="stylesheet" href="style.css">
         <link rel="icon" type="image/x-icon" href="images/favicon.bmp">
-        <script>window.onload = function() {
+        <script>
+        // listen, it'sn't clean, but it works
+        window.onload = function() {
             window.addEventListener("focus", playNarration)
-        }</script>
+        }
+        </script>
     </head>
     <body>
         <audio id="music" src="music/david.mp3" preload="auto" loop></audio>
