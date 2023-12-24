@@ -396,10 +396,7 @@ function playNarration() {
     narration.play();
     window.removeEventListener("focus", playNarration)
 }
-
 window.addEventListener("focus", playNarration)
-
-
 
 const music = document.getElementById("music");
 music.volume = 0.05;
