@@ -133,6 +133,7 @@ const getup = () => {
     document.getElementById("getupbutton").remove();
     unlockables.set("gotten_up", true);
     animation0();
+    PlayMusic();
 }
 document.getElementById("getupbutton").addEventListener("click", function run() {
     getup()
@@ -334,6 +335,9 @@ function NEXT() {
         story_location = [story_entry_number, entry_part_number];
         document.getElementById("storytext_p").innerText = story[story_location[0]][story_location[1]];
     }
+    narration.src = narration_story_PATH + story_entry_number.toString() + "/" + narration_story[entry_part_number];
+    narration.play();
+    console.log(narration_story_PATH + story_entry_number.toString() + "/" + narration_story[entry_part_number]);
 }
 
 document.getElementById("next_part_button").addEventListener("click", function(){
@@ -365,18 +369,13 @@ document.body.onload = function bodyLoad() {
     document.getElementsByClassName("PtotHP")[0].innerHTML = player.totHP;
     document.getElementById("playerpronouns").innerText = pronouns[currentpronouns];
 
-    function PlayMusic() {
-        var play = document.getElementById("music");
-        play.play();
-    }
-    document.body.addEventListener("click", function () {
-        PlayMusic();
-    });
+    
     load();
 
     // check if player has gotten up
     if (unlockables.get("gotten_up")) {
-        getup()
+        getup();
+        
     }
     else if (!unlockables.get("gotten_up")) {
         document.getElementById("storytext_p").innerText = story[story_location[0]][story_location[1]];
@@ -386,7 +385,19 @@ document.body.onload = function bodyLoad() {
         player.has_played = true;
     }
 }
+var narration_story = ["0.mp3", "1.mp3", "2.mp3"];
+const narration_story_PATH = "/narration/story_entries/"
+let narration = new Audio();
+narration.src = narration_story_PATH + story_entry_number.toString() + "/" + narration_story[0];
 
+window.addEventListener("focus", function() {
+    narration.play();
+})
+const music = document.getElementById("music");
+music.volume = 0.05;
+function PlayMusic() {
+    music.play();
+}
 
 
 /*
