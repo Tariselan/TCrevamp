@@ -386,7 +386,7 @@ document.body.onload = function bodyLoad() {
     }
 }
 var narration_story = ["0.mp3", "1.mp3", "2.mp3"];
-const narration_story_PATH = "/narration/story_entries/"
+const narration_story_PATH = "narration/story_entries/"
 let narration = new Audio();
 narration.src = narration_story_PATH + story_entry_number.toString() + "/" + narration_story[0];
 function playNarration() {
