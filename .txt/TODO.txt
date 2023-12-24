@@ -1,0 +1,8 @@
+things to impliment:
+    - actions
+        - coins
+        - collecting wood
+        - way to get stone
+
+    - the shop!
+    - inventory

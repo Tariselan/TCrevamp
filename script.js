@@ -53,7 +53,9 @@ var player = {
     attacks: [attacks.punch],
     inventory: [],
     totHP: 100,
-    curHP: 100
+    curHP: 100,
+    has_played: false,
+    first_played: 0
 }
 
 const pronouns = [
@@ -69,6 +71,7 @@ document.getElementById("playerpronouns").addEventListener("click", function cha
 })
 
 let unlockables = new Map([
+    ["has_played", false],
     ["gotten_up", false],
     ["basic_resources", true],
     ["battle", false]
@@ -181,7 +184,11 @@ function save() {
             stone: materials[2].amount_per_second
         },
         // saves name of player
-        name: player.name,
+        player_attributes: {
+            name: player.name,
+            has_played: player.has_played,
+            first_played: player.first_played
+        },
         unlockables: {
             gotten_up: unlockables.get("gotten_up"),
             basic_resources: unlockables.get("basic_resources"),
@@ -193,7 +200,7 @@ function save() {
         localStorage.setItem("save",JSON.stringify(save));
         alert("Saved Game")
         console.log("Saved game:");
-        console.log(localStorage.save)
+        console.log(JSON.parse(localStorage.save));
 	} catch(err) {
 		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
 	}
@@ -209,15 +216,17 @@ function load() {
     try {
         localStorage.getItem("save");
         console.log("Loaded game:");
-        console.log(localStorage.save)
+        console.log(savegame)
         // changes player name to saved name :)
-        if (typeof savegame.name !== "undefined"){
-            player.name = savegame.name;
+        if (typeof savegame.player_attributes.name !== "undefined"){
+            player.name = savegame.player_attributes.name;
             document.querySelectorAll(".playerName").forEach(span => {
-                span.innerText = savegame.name;
+                span.innerText = savegame.player_attributes.name;
             });
         }
-        unlockables.forEach (function(value, key) {
+        player.first_played = savegame.player_attributes.first_played;
+        player.has_played = savegame.player_attributes.has_played;
+        unlockables.forEach (function(key) {
             unlockables.set(key, savegame.unlockables[key])
         })
 	} catch(err) {
@@ -369,9 +378,12 @@ document.body.onload = function bodyLoad() {
     if (unlockables.get("gotten_up")) {
         getup()
     }
-    // if player hasnt gotten up
-    if (!unlockables.get("gotten_up")) {
+    else if (!unlockables.get("gotten_up")) {
         document.getElementById("storytext_p").innerText = story[story_location[0]][story_location[1]];
+    }
+
+    if(!player.has_played) {
+        player.has_played = true;
     }
 }
 
@@ -396,7 +408,11 @@ const reset = () => {
             stone: 0
         },
         // saves name of player
-        name: "Freya",
+        player_attributes: {
+            name: "Freya",
+            has_played: false,
+            first_played: 0
+        },
         unlockables: {
             gotten_up: false,
             basic_resources: true,
