@@ -389,10 +389,15 @@ var narration_story = ["0.mp3", "1.mp3", "2.mp3"];
 const narration_story_PATH = "/narration/story_entries/"
 let narration = new Audio();
 narration.src = narration_story_PATH + story_entry_number.toString() + "/" + narration_story[0];
-
-window.addEventListener("focus", function() {
+function playNarration() {
     narration.play();
-})
+    window.removeEventListener("focus", playNarration)
+}
+
+window.addEventListener("focus", playNarration)
+
+
+
 const music = document.getElementById("music");
 music.volume = 0.05;
 function PlayMusic() {
