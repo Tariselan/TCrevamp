@@ -134,7 +134,18 @@ const getup = () => {
     unlockables.set("gotten_up", true);
     animation0();
     PlayMusic();
+    narration.pause();
 }
+
+function toggleDivOpacity(n) {
+    let text_div = ['storytext_div', 'journaltext_div'];
+    var div = document.getElementById(text_div[n]);
+    div.style.opacity = (div.style.opacity === '0') ? '1' : '0';
+    if (div.style.display === "visible") {
+        setTimeout();
+    }
+}
+
 document.getElementById("getupbutton").addEventListener("click", function run() {
     getup()
 })
@@ -230,8 +241,6 @@ function load() {
         unlockables.set("gotten_up", savegame.unlockables.gotten_up);
         unlockables.set("basic_resources", savegame.unlockables.basic_resources);
         unlockables.set("battle", savegame.unlockables.battle);
-        
-        console.log(unlockables)
 	} catch(err) {
 		console.log('Cannot access localStorage - browser may be old or storage may be corrupt')
 	}
@@ -275,6 +284,9 @@ document.body.addEventListener('keypress', function(event) {
                 reset();
             }
         }
+        if (event.key === '$') {
+            toggleDivOpacity(0);
+        };
     }
     /*
     list of actions:
@@ -371,12 +383,10 @@ document.body.onload = function bodyLoad() {
     document.getElementsByClassName("PtotHP")[0].innerHTML = player.totHP;
     document.getElementById("playerpronouns").innerText = pronouns[player.currentpronouns];
 
-    
     load();
 
     // check if player has gotten up
     if (unlockables.get("gotten_up")) {
-        getup();
         getup();
         
     }

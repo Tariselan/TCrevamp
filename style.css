@@ -13,7 +13,7 @@ body {
 
 .main { grid-area: main; position: relative; left: 13%;
 width: 550px;}
-.right { grid-area: right; position: relative; top: 15%;  right:40%;}
+.right { grid-area: right; position: relative; top: 15%;  right:30%;}
 .footer { grid-area: footer; }
 
 .grid-container {
@@ -46,6 +46,7 @@ div#stats {
     opacity: 0;
     transition: opacity 1.2s;
 }
+
 div#actions {
     position: relative;
     left: 70px;
@@ -57,9 +58,11 @@ div#actions {
     height: fit-content;
     text-align: center;
     padding: 15px;
+    padding-bottom: 25px;
     opacity: 0;
     transition: opacity 1.2s;
 }
+
 div.fight {
     position: relative;
     width: 300px;
@@ -100,7 +103,7 @@ div#storytext_div {
     left: -150px;
     height: fit-content;
     padding: 35px;
-    transition: opacity 1.2s;
+    transition: opacity 0.5s;
 }
 button#getupbutton {
     visibility: hidden;
