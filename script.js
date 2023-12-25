@@ -327,7 +327,16 @@ var entry_part_number = 0;
 
 var story_location = [story_entry_number, entry_part_number];
 
+function STORY_READ_ALOUD() {
+    narration.src = narration_story_PATH + story_entry_number.toString() + "/" + narration_story[entry_part_number];
+    narration.play();
+    console.log(narration_story_PATH + story_entry_number.toString() + "/" + narration_story[entry_part_number]);
+}
+
 function NEXT() {
+    let page_turn = new Audio("sound_files/sound_effects/pageTurn.mp3");
+    page_turn.volume = 0.5;
+    page_turn.play();
     let amount_of_parts = story[story_entry_number].length - 1;
     if (entry_part_number < amount_of_parts) {
         entry_part_number++;
@@ -349,9 +358,7 @@ function NEXT() {
         story_location = [story_entry_number, entry_part_number];
         document.getElementById("storytext_p").innerText = story[story_location[0]][story_location[1]];
     }
-    narration.src = narration_story_PATH + story_entry_number.toString() + "/" + narration_story[entry_part_number];
-    narration.play();
-    console.log(narration_story_PATH + story_entry_number.toString() + "/" + narration_story[entry_part_number]);
+    STORY_READ_ALOUD()
 }
 
 document.getElementById("next_part_button").addEventListener("click", function(){
@@ -399,7 +406,7 @@ document.body.onload = function bodyLoad() {
     }
 }
 var narration_story = ["0.mp3", "1.mp3", "2.mp3"];
-const narration_story_PATH = "narration/story_entries/"
+const narration_story_PATH = "sound_files/narration/story_entries/"
 let narration = new Audio();
 narration.src = narration_story_PATH + story_entry_number.toString() + "/" + narration_story[0];
 function playNarration() {
