@@ -404,13 +404,7 @@ function PlayMusic() {
     music.play();
 }
 
-
-/*
-
-DEFAULT FOR RESETTING PURPOSES
-
-*/
-
+// DEFAULT FOR RESETTING PURPOSES
 const reset = () => {
     let save = {
         materials_amount: {
