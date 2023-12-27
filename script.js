@@ -25,6 +25,14 @@ class Material {
         this.amount = amount;
         this.amount_per_second = amount_per_second;
     }
+    increase_amount(n) {
+        if (n === undefined) {
+            n = 1;
+        }
+        this.amount = this.amount + n;
+        document.getElementById(this.name.toString()).innerText = this.amount
+        return this.amount;
+    }
 }
 
 // lists of things
@@ -41,11 +49,18 @@ const enemies = {
     2: new Enemy(2, "Wild Dog", 10, [attacks.bite, attacks.scratch])
 }
 
-const materials = {
+var materials = {
     0: new Material(0, "Coins", 1, 0),
     1: new Material(1, "Wood", 0, 0),
     2: new Material(2, "Stone", 0, 0)
 }
+
+const coin_button = document.getElementById("collect_coin");
+coin_button.addEventListener("click", function(){
+    materials[0].increase_amount();
+})
+
+console.log(Material.prototype) // testing :3
 
 // the rest ig lol
 var player = {
@@ -124,6 +139,7 @@ const getup = () => {
     function animation1() {
         document.getElementById("actions").style.opacity = 1;
         document.getElementById("stats").style.opacity = 1;
+        document.getElementById("storytext_div").style.top = "100px";
         setTimeout(animation2(), 2400);
     }
     function animation2() {
@@ -236,6 +252,11 @@ function load() {
                 span.innerText = savegame.player_attributes.name;
             });
         }
+        //
+        document.getElementById("Coins").innerText = savegame.materials_amount.coins;
+        document.getElementById("Wood").innerText = savegame.materials_amount.wood;
+        document.getElementById("Stone").innerText = savegame.materials_amount.stone;
+        //
         player.first_played = savegame.player_attributes.first_played;
         player.has_played = savegame.player_attributes.has_played;
         unlockables.set("gotten_up", savegame.unlockables.gotten_up);
