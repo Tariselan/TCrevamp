@@ -356,7 +356,7 @@ function STORY_READ_ALOUD() {
 
 function NEXT() {
     let page_turn = new Audio("sound_files/sound_effects/pageTurn.mp3");
-    page_turn.volume = 0.5;
+    page_turn.volume = 1;
     page_turn.play();
     let amount_of_parts = story[story_entry_number].length - 1;
     if (entry_part_number < amount_of_parts) {
