@@ -53,7 +53,7 @@ var materials = {
     0: new Material(0, "Coins", 1, 0),
     1: new Material(1, "Wood", 0, 0),
     2: new Material(2, "Stone", 0, 0),
-    "": new Material("", "Contemplations", 0, 0) 
+    99: new Material("", "Contemplations", 0, 0) 
 }
 
 const coin_button = document.getElementById("collect_coin");
@@ -236,13 +236,13 @@ function save() {
             coins: materials[0].amount,
             wood: materials[1].amount,
             stone: materials[2].amount,
-            contemplations: materials[""].amount
+            contemplations: materials[99].amount
         },
         materials_amountPS: {
             coins: materials[0].amount_per_second,
             wood: materials[1].amount_per_second,
             stone: materials[2].amount_per_second,
-            contemplations: materials[""].amount_per_second
+            contemplations: materials[99].amount_per_second
         },
         // saves name of player
         player_attributes: {
@@ -270,6 +270,35 @@ document.getElementById("save_button").addEventListener("click", function run() 
     save();
 })
 
+
+document.getElementById("contemplate").addEventListener("click", function() {
+    let sound = new Audio("sound_files/sound_effects/contemplate.mp3");
+    sound.volume = 0.1;
+    const contemplation = document.createElement("div");
+    contemplation.id = "contemplation"
+    document.getElementsByClassName("main")[0].appendChild(contemplation);
+    contemplation.style.position = "relative";
+    contemplation.style.left = "55px"
+    contemplation.style.width = "300px";
+    contemplation.style.height = "fit-content";
+    contemplation.style.backgroundColor = "#333";
+    contemplation.style.padding = "5px";
+    contemplation.style.color = "#DDD";
+    contemplation.style.border = "10px solid #222";
+    contemplation.style.borderRadius = "5px";
+    contemplation.style.textAlign = "center";
+    const title = document.createElement("h3");
+    title.innerText = "Contemplation";
+    contemplation.appendChild(title);
+    const innertext = document.createElement("p");
+
+    innertext.innerHTML = Texts.contemplations[materials[99].amount];
+    console.log(materials[99].amount);
+    contemplation.addEventListener("mouseover", function() {
+        sound.play();
+        contemplation.remove();
+    })
+})
 
 function load() {
     // accesses localstorage and parses the save state
