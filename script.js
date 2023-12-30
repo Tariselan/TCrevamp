@@ -52,7 +52,8 @@ const enemies = {
 var materials = {
     0: new Material(0, "Coins", 1, 0),
     1: new Material(1, "Wood", 0, 0),
-    2: new Material(2, "Stone", 0, 0)
+    2: new Material(2, "Stone", 0, 0),
+    "": new Material("", "Contemplations", 0, 0) 
 }
 
 const coin_button = document.getElementById("collect_coin");
@@ -131,27 +132,57 @@ const enemyattack = (attackId) => {
 }
 
 const getup = () => {
-    function animation0() {
-        document.getElementById("storytext_div").style.opacity = 0;
-        setTimeout(animation1, 1200)
-    }
-    
-    function animation1() {
-        document.getElementById("actions").style.opacity = 1;
-        document.getElementById("stats").style.opacity = 1;
-        document.getElementById("storytext_div").style.top = "100px";
-        setTimeout(animation2(), 2400);
-    }
-    function animation2() {
-        document.getElementById("materialstats").style.opacity = 1;
-        document.getElementById("materialstats").style.height = "160px";
-    }
-    document.getElementById("getupbutton").remove();
+    const fadeIn = (elementId, opacity = 1) => {
+        const element = document.getElementById(elementId);
+        element.style.opacity = opacity;
+    };
+
+    const moveElement = (elementId, topValue) => {
+        const element = document.getElementById(elementId);
+        element.style.top = `${topValue}px`;
+    };
+
+    const increaseElementHeight = (elementId, heightValue) => {
+        const element = document.getElementById(elementId);
+        element.style.height = `${heightValue}px`;
+    };
+
+    const removeElement = (elementId) => {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.remove();
+        }
+    };
+
+    const fadeInWithDelay = (elementId, opacity, delay) => {
+        setTimeout(() => fadeIn(elementId, opacity), delay);
+    };
+
+    const moveElementWithDelay = (elementId, topValue, delay) => {
+        setTimeout(() => moveElement(elementId, topValue), delay);
+    };
+
+    const increaseElementHeightWithDelay = (elementId, heightValue, delay) => {
+        setTimeout(() => increaseElementHeight(elementId, heightValue), delay);
+    };
+
+    removeElement("getupbutton");
+
     unlockables.set("gotten_up", true);
-    animation0();
+
+    fadeInWithDelay("storytext_div", 0, 0);
+    fadeInWithDelay("actions", 1, 1200);
+    fadeInWithDelay("stats", 1, 1200);
+    moveElementWithDelay("storytext_div", 100, 2400);
+    fadeInWithDelay("materialstats", 1, 2400);
+    increaseElementHeightWithDelay("materialstats", 160, 2400);
+    fadeInWithDelay("inventory", 1, 4800);
+    increaseElementHeightWithDelay("inventory", 70, 4800);
+
     PlayMusic();
     narration.pause();
-}
+};
+
 
 function toggleDivOpacity(n) {
     let text_div = ['storytext_div', 'journaltext_div'];
@@ -168,9 +199,9 @@ document.getElementById("getupbutton").addEventListener("click", function run() 
 
 const ACCESSIBILY_MODE = () => {
     if (!modes.get("ACCESSIBILITY_MODE")){
-        document.body.style.fontFamily = "'Courier New', Courier, monospace";
+        document.body.style.fontFamily = "'Helvetica', Sans-Serif";
         document.querySelectorAll('.button').forEach(button => {
-            button.style.fontFamily = "'Courier New', Courier, monospace";
+            button.style.fontFamily = "'Helvetica', Sans-Serif";
             modes.set("ACCESSIBILITY_MODE", true);
         })
     }
@@ -204,12 +235,14 @@ function save() {
         materials_amount: {
             coins: materials[0].amount,
             wood: materials[1].amount,
-            stone: materials[2].amount
+            stone: materials[2].amount,
+            contemplations: materials[""].amount
         },
         materials_amountPS: {
             coins: materials[0].amount_per_second,
             wood: materials[1].amount_per_second,
-            stone: materials[2].amount_per_second
+            stone: materials[2].amount_per_second,
+            contemplations: materials[""].amount_per_second
         },
         // saves name of player
         player_attributes: {
@@ -256,6 +289,7 @@ function load() {
         document.getElementById("Coins").innerText = savegame.materials_amount.coins;
         document.getElementById("Wood").innerText = savegame.materials_amount.wood;
         document.getElementById("Stone").innerText = savegame.materials_amount.stone;
+        materials[""].amount = savegame.materials_amount.contemplations;
         //
         player.first_played = savegame.player_attributes.first_played;
         player.has_played = savegame.player_attributes.has_played;
@@ -334,6 +368,7 @@ document.body.addEventListener('keypress', function(event) {
 /*
 Text imports around story and 
 */
+
 import Texts from './JSON/text.json' assert {type: 'json'};
 const story = Texts.story_entries;
 
@@ -345,41 +380,42 @@ entry_part_number stores which part of the story entry they're up to, the intro 
 
 var story_entry_number = 0;
 var entry_part_number = 0;
+let story_location = [story_entry_number, entry_part_number];
 
-var story_location = [story_entry_number, entry_part_number];
-
-function STORY_READ_ALOUD() {
-    narration.src = narration_story_PATH + story_entry_number.toString() + "/" + narration_story[entry_part_number];
-    narration.play();
-    console.log(narration_story_PATH + story_entry_number.toString() + "/" + narration_story[entry_part_number]);
-}
 
 function NEXT() {
     let page_turn = new Audio("sound_files/sound_effects/pageTurn.mp3");
     page_turn.volume = 1;
     page_turn.play();
+
     let amount_of_parts = story[story_entry_number].length - 1;
+
     if (entry_part_number < amount_of_parts) {
         entry_part_number++;
         story_location = [story_entry_number, entry_part_number];
         document.getElementById("storytext_p").innerText = story[story_location[0]][story_location[1]];
-        if (entry_part_number == (amount_of_parts)) {
+        if (entry_part_number == amount_of_parts) {
             /*
             listen, i know this conditional is here in two locations. but if
             i move it down into the block with the other conditional, the code
             just fucking breaks :((
             */
+
             document.getElementById("getupbutton").style.visibility = "visible";
             document.getElementById("next_part_button").style.visibility = "hidden";
         }
-    }   
-    else if (entry_part_number == amount_of_parts) {
+    } else if (entry_part_number == amount_of_parts) {
         entry_part_number = 0;
         story_entry_number++;
         story_location = [story_entry_number, entry_part_number];
         document.getElementById("storytext_p").innerText = story[story_location[0]][story_location[1]];
     }
-    STORY_READ_ALOUD()
+}
+
+function STORY_READ_ALOUD() {
+    narration.src = narration_story_PATH + story_entry_number.toString() + "/" + narration_story[entry_part_number];
+    narration.play();
+    console.log(narration_story_PATH + story_entry_number.toString() + "/" + narration_story[entry_part_number]);
 }
 
 document.getElementById("next_part_button").addEventListener("click", function(){
@@ -448,12 +484,14 @@ const reset = () => {
         materials_amount: {
             coins: 1,
             wood: 0,
-            stone: 0
+            stone: 0,
+            contemplations: 0
         },
         materials_amountPS: {
             coins: 0,
             wood: 0,
-            stone: 0
+            stone: 0,
+            contemplations: 0
         },
         // saves name of player
         player_attributes: {

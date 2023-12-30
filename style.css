@@ -6,7 +6,7 @@ body {
     background-color: #222;
     display: flex;
     justify-content: center;
-    font-family: 'Times New Roman', Times, serif
+    font-family: 'Times New Roman', Times, serif;
 }
 .header { height: fit-content; grid-area: header; }
 .menu { grid-area: menu; position: relative; top: 15%; left:30%;  }
@@ -14,16 +14,20 @@ body {
 .main { grid-area: main; position: relative; left: 13%;
 width: 550px;}
 .right { grid-area: right; position: relative; top: 15%;  right:30%;}
-.footer { grid-area: footer; }
+.footer { position: fixed; bottom: 0px; padding: 10px; width: 50%; background-color: #444; text-align: center;
+border: 5px solid #333; border-radius: 5px; opacity: 0.1; transition: opacity 0.5s;}
+.footer:hover {
+    opacity: 1;
+}
 
 .grid-container {
-  display: grid;
-  grid-template-areas:
-    'header header header header header header'
-    'menu main main main right right'
-    'menu footer footer footer footer footer';
-  gap: 10px;
-  padding: 10px;
+    display: grid;
+    grid-template-areas:
+        'header header header header header header'
+        'menu main main main right right'
+        'menu footer footer footer footer footer';
+    gap: 10px;
+    padding: 10px;
 }
 
 span.playerName, span#playerpronouns {
@@ -63,6 +67,7 @@ div#actions {
     transition: opacity 1.2s;
 }
 
+
 div.fight {
     position: relative;
     width: 300px;
@@ -90,6 +95,11 @@ div#materialstats {
     height: 0px;
     transition: opacity 1.2s linear 1.2s, height 1.2s;
 }
+div#inventory {
+    opacity: 0;
+    height: 0px;
+    transition: opacity 1.2s linear 1.2s, height 1.2s;
+}
 div#storytext_div {
     position: relative;
     width: 650px;
@@ -107,4 +117,14 @@ div#storytext_div {
 }
 button#getupbutton {
     visibility: hidden;
+}
+
+select {
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+button {
+    border: none;
+    border-radius: 2px;
 }

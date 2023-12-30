@@ -6,3 +6,8 @@ things to impliment:
 
     - the shop!
     - inventory
+    - accessibility features
+        - contrast colors
+        - alt text
+        - aria labels (https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)
+        - test with screen reader
