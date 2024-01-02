@@ -197,7 +197,7 @@ document.getElementById("getupbutton").addEventListener("click", function run() 
     getup()
 })
 
-const ACCESSIBILY_MODE = () => {
+const ACCESSIBILITY_MODE  = () => {
     if (!modes.get("ACCESSIBILITY_MODE")){
         document.body.style.fontFamily = "'Helvetica', Sans-Serif";
         document.querySelectorAll('.button').forEach(button => {
@@ -380,7 +380,7 @@ document.body.addEventListener('keypress', function(event) {
         - "n" => next lol
     */
     if (event.key === "A") {
-        ACCESSIBILY_MODE();
+        ACCESSIBILITY_MODE ();
     }
     if (event.key === "s") {
         save();
